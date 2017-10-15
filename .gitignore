@@ -24,3 +24,4 @@ hs_err_pid*
 .idea/tasks.xml
 target/
 .idea/vcs.xml
+.idea/uiDesigner.xml
