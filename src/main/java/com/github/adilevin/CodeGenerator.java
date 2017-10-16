@@ -1,36 +1,33 @@
 package com.github.adilevin;
 
-import freemarker.ext.beans.BeansWrapperBuilder;
 import freemarker.template.*;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.io.Writer;
-import java.util.HashMap;
-import java.util.Map;
 
-/**
- * Created by alevin on 10/15/2017.
- */
-public class Translator {
+public class CodeGenerator {
 
   private Configuration cfg;
-  private Template tmpl;
+  private Template template;
 
-  public Translator() throws IOException {
-    Configuration cfg = new Configuration(Configuration.VERSION_2_3_25);
-    cfg.setClassLoaderForTemplateLoading(getClass().getClassLoader(),"freemarker-templates");
+  public CodeGenerator(String templateName) throws IOException {
+    cfg = createFreeMarkerConfig();
+    template = cfg.getTemplate(templateName);
+  }
+
+  private Configuration createFreeMarkerConfig() {
+    cfg = new Configuration(Configuration.VERSION_2_3_25);
+    cfg.setClassLoaderForTemplateLoading(getClass().getClassLoader(), "freemarker-templates");
     cfg.setDefaultEncoding("UTF-8");
     cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     cfg.setLogTemplateExceptions(false);
-    tmpl = cfg.getTemplate("lua-output.ftlh");
+    return cfg;
   }
 
-
   public String generateLUA(IntermediateModel model) throws IOException, TemplateException {
-
     Writer out = new StringWriter(0);
-    tmpl.process(model, out);
+    template.process(model, out);
     return out.toString();
   }
 

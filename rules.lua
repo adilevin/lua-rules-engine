@@ -12,4 +12,10 @@ return {
       ["action"] = "reject",
       ["text"] = "IF height>=180 THEN reject" },
 
+  {  ["pred"] = function()
+       return weight==40
+      end,
+      ["action"] = "accept",
+      ["text"] = "IF weight==40 THEN accept" },
+
 }
