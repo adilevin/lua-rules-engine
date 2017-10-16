@@ -14,10 +14,15 @@ at compile time. At run time, we transform a script the follows the
 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)'s specification, 
 into executable [LUA](https://www.lua.org/) code.  
 
+    DSL grammar -------- compile time -------- > Java parser & code generator
+
+    DSL script  ---------- run time ---------- > LUA code 
+
 ## The [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)
 
 The [grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md) for our 
-[DSL](https://en.wikipedia.org/wiki/Domain-specific_language) is in the file [IfThen.g4](src/main/antlr4/IfThen.g4).
+[DSL](https://en.wikipedia.org/wiki/Domain-specific_language) 
+is in the file [IfThen.g4](src/main/antlr4/com/github/adilevin/IfThen.g4).
 Valid scripts include a collection of rules that have the form `if <predicate> then <action>`.
 Preciates are comparisons such as `height < 30`, `weight >= 40` or `age >= 6`, 
 and actions are only `accept` and `reject`.
