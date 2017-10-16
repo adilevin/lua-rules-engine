@@ -24,10 +24,12 @@ public class App
         walker.walk(listener, progContext);
         IntermediateModel intermediateModel = listener.getIntermediateModel();
 
-        Translator translator = new Translator();
-        String luaCode = translator.generateLUA(intermediateModel);
-
-        System.out.println( luaCode );
-
+        try {
+            Translator translator = new Translator();
+            String luaCode = translator.generateLUA(intermediateModel);
+            System.out.println( luaCode );
+        } catch (Exception e) {
+            System.out.println("Failed: " + e);
+        }
     }
 }

@@ -1,7 +1,5 @@
 package com.github.adilevin;
 
-import static com.github.adilevin.IntermediateModel.*;
-
 /**
  * Created by alevin on 10/15/2017.
  */
@@ -27,10 +25,9 @@ public class SimpleListener extends IfThenBaseListener {
   public void enterConditional(IfThenParser.ConditionalContext ctx) {
     System.out.println("enterConditional");
 
-    model.conditionals.add(new Conditional() {{
-      predicate = ctx.predicate().getText();
-      action = ctx.action().getText();
-    }});
+    IntermediateModel.Conditional cond = new IntermediateModel.Conditional(
+            ctx.predicate().getText(), ctx.action().getText());
+    model.conditionals.add(cond);
   }
 
 }

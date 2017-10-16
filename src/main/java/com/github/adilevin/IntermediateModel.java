@@ -9,8 +9,14 @@ import java.util.List;
 public class IntermediateModel {
 
   static class Conditional {
-    public String predicate;
-    public String action;
+    public Conditional(String predicate, String action) {
+      this.predicate = predicate;
+      this.action = action;
+    }
+    public String getPredicate() { return predicate; }
+    public String getAction() { return action; }
+    private String predicate;
+    private String action;
   }
 
   public List<Conditional> conditionals = new ArrayList<>();
