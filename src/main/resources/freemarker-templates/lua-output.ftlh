@@ -1,4 +1,4 @@
-rules = {
+return {
 <#list conditionals as cond>
 
   {  ["pred"] = function()
