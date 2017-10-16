@@ -29,12 +29,9 @@ public class Translator {
 
   public String generateLUA(IntermediateModel model) throws IOException, TemplateException {
 
-    Writer out = new StringWriter(128);
+    Writer out = new StringWriter(0);
     for (IntermediateModel.Conditional cond : model.conditionals) {
-      Map<String, Object> root = new HashMap<>();
-      root.put("predicate", cond.getPredicate());
-      root.put("action", cond.getAction());
-      tmpl.process(root, out);
+      tmpl.process(cond, out);
     }
     return out.toString();
   }

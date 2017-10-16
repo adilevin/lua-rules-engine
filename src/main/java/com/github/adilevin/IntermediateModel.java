@@ -1,5 +1,8 @@
 package com.github.adilevin;
 
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -8,13 +11,11 @@ import java.util.List;
  */
 public class IntermediateModel {
 
-  static class Conditional {
-    public Conditional(String predicate, String action) {
-      this.predicate = predicate;
-      this.action = action;
-    }
-    public String getPredicate() { return predicate; }
-    public String getAction() { return action; }
+  // In order for Freemarker templates object mapper to work, this needs to be a public class
+  // with getters such as in the JavaBeans spec (getXX() or isXX()). I've used Lombok to help with this.
+  @Getter
+  @AllArgsConstructor
+  static public class Conditional {
     private String predicate;
     private String action;
   }
