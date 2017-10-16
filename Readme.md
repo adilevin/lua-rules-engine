@@ -12,7 +12,8 @@ is generated automatically by [ANTLR](https://github.com/antlr/antlr4) from
 the .g4 [grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md), 
 at compile time. At run time, we transform a script the follows the
 [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)'s specification, 
-into executable [LUA](https://www.lua.org/) code.  
+into executable [LUA](https://www.lua.org/) code, with the help of
+[FreeMarker](http://freemarker.org/) templates.
 
     DSL grammar -------- compile time -------- > Java parser & code generator
 
