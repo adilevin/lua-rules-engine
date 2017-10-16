@@ -1,4 +1,4 @@
-person = { ["age"] = 60, ["height"] = 80, ["weight"] = 40}
+person = { ["age"] = 60, ["height"] = 280, ["weight"] = 40}
 
 print("\nage = " .. person.age)
 print("height = " .. person.height)
@@ -11,10 +11,10 @@ print("\nInvoking rules")
 decision = "neutral"
 reason = ""
 for n, r in ipairs(rules) do
-   print("invoking rule # " .. n .. ": " .. r["text"])
-   if r["pred"](person) then
-      decision = r["action"]
-      reason = r["text"]
+   print("invoking rule # " .. n .. ": " .. r.text)
+   if r.pred(person) then
+      decision = r.action
+      reason = r.text
       break
    end
 end
