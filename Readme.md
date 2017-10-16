@@ -29,6 +29,12 @@ and actions are only `accept` and `reject`.
 
 See [1.rules](src/main/resources/rule-files/1.rules) for an example of a valid script.
 
+## The use of [LUA](https://www.lua.org/) for executing the rules
+
+The generated [LUA](https://www.lua.org/) code runs through the rules, and stops when one rule returns
+an "accept" or "reject" decision. As output, we get not only the decision, but also information the
+reasoning behind the decision, i.e. which rule was fired to trigger that decision. 
+
 ## How to generate the parser
 
 The Antlr4 Maven plugin automatically generates the parser code under `target/generated-sources/`. 
@@ -57,3 +63,6 @@ After generating the [LUA](https://www.lua.org/) code, run the following command
     lua main.lua
     
 Notice that [main.lua](main.lua) "require"s [rules.lua](rules.lua).
+
+A [LUA](https://www.lua.org/) installation is a prerequisite.
+(Windows users - install from [here](https://github.com/rjpcomputing/luaforwindows/releases)) 
