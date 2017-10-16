@@ -2,21 +2,32 @@
  
 ## Overview
 
-This project demonstrates transformation of a DSL into LUA code.
+This project demonstrates transformation of a [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) 
+into [LUA](https://www.lua.org/) code.
 
-The DSL is defined using a [grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md) (*.g4) file. 
-The parser for this grammar is generated automatically by [ANTLR](https://github.com/antlr/antlr4) from 
-the .g4 grammer, at compile time. At run time, we transform a script the follows the DSL's language, 
+The [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) is defined using a 
+[grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md) (*.g4) file. 
+The parser for this [grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md) 
+is generated automatically by [ANTLR](https://github.com/antlr/antlr4) from 
+the .g4 [grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md), 
+at compile time. At run time, we transform a script the follows the
+[DSL](https://en.wikipedia.org/wiki/Domain-specific_language)'s specification, 
 into executable [LUA](https://www.lua.org/) code.  
 
-## The grammar
+## The [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)
 
-The grammar for our DSL is in `src/main/antlr4/IfThen.g4`.
+The [grammar](https://github.com/antlr/antlr4/blob/master/doc/grammars.md) for our 
+[DSL](https://en.wikipedia.org/wiki/Domain-specific_language) is in the file [IfThen.g4](src/main/antlr4/IfThen.g4).
+Valid scripts include a collection of rules that have the form `if <predicate> then <action>`.
+Preciates are comparisons such as `height < 30`, `weight >= 40` or `age >= 6`, 
+and actions are only `accept` and `reject`.
+
+See [1.rules](src/main/resources/rule-files/1.rules) for an example of a valid script.
 
 ## How to generate the parser
 
 The Antlr4 Maven plugin automatically generates the parser code under `target/generated-sources/`. 
-Notice the `<visitor>` option in the pom.xml, which is needed in order to generate Visitor base classes.   
+Notice the `<visitor>` option in [pom.xml](pom.xml), which is needed in order to generate Visitor base classes.   
 
 #### Invoking from IntelliJ
 
@@ -31,13 +42,13 @@ Type this in the command line from the project folder:
     
 ## How to run the LUA code generator
 
-Run the class `App` in the project folder. It will read the rules in the resource file `/rule-files/1.rules` 
-and will generate `rules.lua`.
+Run the class [App](src/main/java/com/github/adilevin/App.java) in the project folder. It will read the rules in the resource file [/rule-files/1.rules](src/main/resources/rule-files/1.rules) 
+and will generate [rules.lua](rules.lua).
 
-## How to execute the LUA code
+## How to execute the [LUA](https://www.lua.org/) code
 
-After generating the LUA code, run the following command in the project folder:
+After generating the [LUA](https://www.lua.org/) code, run the following command in the project folder:
 
     lua main.lua
     
-Notice that `main.lua` "require"s `rules.lua`.
+Notice that [main.lua](main.lua) "require"s [rules.lua](rules.lua).
