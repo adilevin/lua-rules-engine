@@ -1,10 +1,8 @@
-age = 60
-height = 80
-weight = 40
+person = { ["age"] = 60, ["height"] = 80, ["weight"] = 40}
 
-print("\nage = " .. age)
-print("height = " .. height)
-print("weight = " .. weight)
+print("\nage = " .. person.age)
+print("height = " .. person.height)
+print("weight = " .. person.weight)
 
 rules = require("rules")
 
@@ -14,7 +12,7 @@ decision = "neutral"
 reason = ""
 for n, r in ipairs(rules) do
    print("invoking rule # " .. n .. ": " .. r["text"])
-   if r["pred"]() then
+   if r["pred"](person) then
       decision = r["action"]
       reason = r["text"]
       break

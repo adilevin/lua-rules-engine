@@ -9,6 +9,8 @@ import org.antlr.v4.runtime.tree.ParseTreeWalker;
 import java.io.IOException;
 import java.io.InputStream;
 
+import static java.util.stream.Collectors.toList;
+
 public class IntermediateModelBuilder {
 
   static IntermediateModel buildIntermediateModelFromRulesText(InputStream rulesText) throws IOException {
@@ -18,11 +20,8 @@ public class IntermediateModelBuilder {
   }
 
   private static IntermediateModel walkParseTree(IfThenParser.ProgContext progContext) {
-    IntermediateModel model = new IntermediateModel();
-    Listener listener = new Listener(model);
-    ParseTreeWalker walker = new ParseTreeWalker();
-    walker.walk(listener, progContext);
-    return model;
+    RulesVisitor rulesVisitor = new RulesVisitor();
+    return progContext.accept(rulesVisitor);
   }
 
   private static IfThenParser.ProgContext parse(CommonTokenStream tokens) {
@@ -36,17 +35,35 @@ public class IntermediateModelBuilder {
     return new CommonTokenStream(lexer);
   }
 
-  @AllArgsConstructor
-  private static class Listener extends IfThenBaseListener {
+  private static class RulesVisitor extends IfThenBaseVisitor<IntermediateModel> {
 
-    private IntermediateModel model;
-
-    @Override
-    public void enterConditional(IfThenParser.ConditionalContext ctx) {
-      IntermediateModel.Conditional cond = new IntermediateModel.Conditional(
-              ctx.predicate().getText(), ctx.action().getText());
-      model.conditionals.add(cond);
+    @Override public IntermediateModel visitProg(IfThenParser.ProgContext ctx) {
+      IntermediateModel model = new IntermediateModel();
+      CondVisitor condVisitor = new CondVisitor();
+      ctx.conditional()
+              .stream()
+              .map(condCtx -> condCtx.accept(condVisitor))
+              .forEach((condModel)->{model.conditionals.add(condModel);});
+      return model;
     }
+  }
 
+  private static class CondVisitor extends IfThenBaseVisitor<IntermediateModel.Conditional> {
+
+    @Override public IntermediateModel.Conditional visitConditional(IfThenParser.ConditionalContext ctx) {
+      PredicateVisitor predicateVisitor = new PredicateVisitor();
+      IntermediateModel.Predicate predicate = ctx.predicate().accept(predicateVisitor);
+      return new IntermediateModel.Conditional(predicate, ctx.action().getText());
+    }
+  }
+
+  private static class PredicateVisitor extends IfThenBaseVisitor<IntermediateModel.Predicate> {
+
+    @Override public IntermediateModel.Predicate visitPredicate(IfThenParser.PredicateContext ctx) {
+      return new IntermediateModel.Predicate(
+              ctx.measurement().getText(),
+              ctx.comp().getText(),
+              ctx.value().getText());
+    }
   }
 }

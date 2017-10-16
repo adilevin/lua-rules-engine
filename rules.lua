@@ -1,21 +1,21 @@
 return {
 
-  {  ["pred"] = function()
-       return age<50
-      end,
-      ["action"] = "accept",
-      ["text"] = "IF age<50 THEN accept" },
+  { ["pred"] = function(person)
+      return (person.age < 50)
+    end,
+    ["action"] = "accept",
+    ["text"] = "if age < 50 then accept" },
 
-  {  ["pred"] = function()
-       return height>=180
-      end,
-      ["action"] = "reject",
-      ["text"] = "IF height>=180 THEN reject" },
+  { ["pred"] = function(person)
+      return (person.height >= 180)
+    end,
+    ["action"] = "reject",
+    ["text"] = "if height >= 180 then reject" },
 
-  {  ["pred"] = function()
-       return weight==40
-      end,
-      ["action"] = "accept",
-      ["text"] = "IF weight==40 THEN accept" },
+  { ["pred"] = function(person)
+      return (person.weight == 40)
+    end,
+    ["action"] = "accept",
+    ["text"] = "if weight == 40 then accept" },
 
 }

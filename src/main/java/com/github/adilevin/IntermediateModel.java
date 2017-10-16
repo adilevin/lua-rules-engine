@@ -15,8 +15,16 @@ public class IntermediateModel {
   @Getter
   @AllArgsConstructor
   static public class Conditional {
-    private String predicate;
+    private Predicate predicate;
     private String action;
+  }
+
+  @Getter
+  @AllArgsConstructor
+  static public class Predicate {
+    private String measurement;
+    private String comparator;
+    private String value;
   }
 
   public List<Conditional> conditionals = new ArrayList<>();
