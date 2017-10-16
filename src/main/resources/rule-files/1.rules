@@ -1,0 +1,2 @@
+if age < 50 then accept
+if height >= 180 then reject

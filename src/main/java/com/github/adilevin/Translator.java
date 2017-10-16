@@ -23,16 +23,14 @@ public class Translator {
     cfg.setDefaultEncoding("UTF-8");
     cfg.setTemplateExceptionHandler(TemplateExceptionHandler.RETHROW_HANDLER);
     cfg.setLogTemplateExceptions(false);
-    tmpl = cfg.getTemplate("conditional.ftlh");
+    tmpl = cfg.getTemplate("lua-output.ftlh");
   }
 
 
   public String generateLUA(IntermediateModel model) throws IOException, TemplateException {
 
     Writer out = new StringWriter(0);
-    for (IntermediateModel.Conditional cond : model.conditionals) {
-      tmpl.process(cond, out);
-    }
+    tmpl.process(model, out);
     return out.toString();
   }
 
