@@ -1,3 +1,5 @@
+-- This code was auto-generated using ANTLR4
+
 return {
 
   { ["pred"] = function(person)
