@@ -15,9 +15,13 @@ at compile time. At run time, we transform a script the follows the
 into executable [LUA](https://www.lua.org/) code, with the help of
 [FreeMarker](http://freemarker.org/) templates.
 
-    DSL grammar -------- compile time -------- > Java parser & code generator
+##### Compile time
 
-    DSL script  ---------- run time ---------- > LUA code 
+![](images/compile-time.PNG)
+
+##### Run time
+
+![](images/run-time.PNG) 
 
 ## The [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)
 
