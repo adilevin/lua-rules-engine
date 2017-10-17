@@ -1,21 +1,17 @@
 package com.github.adilevin;
 
-import lombok.AllArgsConstructor;
 import org.antlr.v4.runtime.CharStream;
 import org.antlr.v4.runtime.CharStreams;
 import org.antlr.v4.runtime.CommonTokenStream;
-import org.antlr.v4.runtime.tree.ParseTreeWalker;
 
 import java.io.IOException;
 import java.io.InputStream;
 
-import static java.util.stream.Collectors.toList;
+public class DSLParser {
 
-public class IntermediateModelBuilder {
-
-  static IntermediateModel buildIntermediateModelFromRulesText(InputStream rulesText) throws IOException {
+  public static IntermediateModel parseDSLScript(InputStream rulesText) throws IOException {
     CommonTokenStream tokens = tokenize(rulesText);
-    IfThenParser.ProgContext progContext = parse(tokens);
+    IfThenParser.ProgContext progContext = buildParseTree(tokens);
     return walkParseTree(progContext);
   }
 
@@ -24,7 +20,7 @@ public class IntermediateModelBuilder {
     return progContext.accept(rulesVisitor);
   }
 
-  private static IfThenParser.ProgContext parse(CommonTokenStream tokens) {
+  private static IfThenParser.ProgContext buildParseTree(CommonTokenStream tokens) {
     IfThenParser parser = new IfThenParser(tokens);
     return parser.prog();
   }

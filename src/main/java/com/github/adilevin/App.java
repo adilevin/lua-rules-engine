@@ -8,20 +8,20 @@ import java.io.InputStream;
 import java.io.PrintWriter;
 
 public class App {
-  private static final String INPUT_FILE_NAME = "/rule-files/1.rules";
+  private static final String INPUT_FILE_NAME = "/dsl-scripts/1.rules";
   private static final String OUTPUT_FILE_NAME = "rules.lua";
 
   public static void main(String[] args) throws IOException, TemplateException {
-    IntermediateModel intermediateModel = parseRules();
+    IntermediateModel intermediateModel = parseDSLScript(INPUT_FILE_NAME);
     String luaCode = generateLUACode(intermediateModel);
     writeLUAFile(luaCode, OUTPUT_FILE_NAME);
     System.out.println("Done.");
   }
 
-  private static IntermediateModel parseRules() throws IOException {
-    System.out.println("Parsing " + INPUT_FILE_NAME);
-    InputStream in = App.class.getResourceAsStream(INPUT_FILE_NAME);
-    return IntermediateModelBuilder.buildIntermediateModelFromRulesText(in);
+  private static IntermediateModel parseDSLScript(String inputFileName) throws IOException {
+    System.out.println("Parsing " + inputFileName);
+    InputStream in = App.class.getResourceAsStream(inputFileName);
+    return DSLParser.parseDSLScript(in);
   }
 
   private static void writeLUAFile(String luaCode, String filename) throws FileNotFoundException {
