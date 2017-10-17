@@ -57,7 +57,7 @@ The [LUA](https://www.lua.org/) code runs through the generated rules, and stops
 an `accept` or `reject` decision. As output, we get not only the decision, but also information the
 reasoning behind the decision, i.e. which rule was fired to trigger that decision. 
 
-## How to build the project and generate the DSL parser
+## How to build the project and generate the [DSL](https://en.wikipedia.org/wiki/Domain-specific_language) parser
 
 Assuming you have [Maven](https://maven.apache.org/) installed, run
 
@@ -74,7 +74,7 @@ The `antlr4` goal can also be invoked separately, by running
     
 in the project folder, or by invoking the goal `antlr4:antlr4` under `Plugins -> antlr4` in the `Maven Projects` window in IntelliJ. 
     
-## How to run the LUA code generator
+## How to run the [LUA](https://www.lua.org/) code generator
 
 Assuming you have [Maven](https://maven.apache.org/) installed, run the class [App](src/main/java/com/github/adilevin/App.java) by typing
 
@@ -82,8 +82,40 @@ Assuming you have [Maven](https://maven.apache.org/) installed, run the class [A
     
 in the project folder. 
 
-This will read the DSL script in the resource file [/dsl-scripts/1.rules](src/main/resources/dsl-scripts/1.rules) 
-and will generate [rules.lua](rules.lua).
+This will read the [DSL](https://en.wikipedia.org/wiki/Domain-specific_language)
+script in the resource file [/dsl-scripts/1.rules](src/main/resources/dsl-scripts/1.rules)
+ 
+    if age < 50 then accept
+    if height >= 180 then reject
+    if weight == 40 then accept 
+ 
+and will turn it into [LUA](https://www.lua.org/) code, generating the file [rules.lua](rules.lua):
+
+```lua
+-- This code was auto-generated using ANTLR4
+
+return {
+
+  { ["pred"] = function(person)
+      return (person.age < 50)
+    end,
+    ["action"] = "accept",
+    ["text"] = "if age < 50 then accept" },
+
+  { ["pred"] = function(person)
+      return (person.height >= 180)
+    end,
+    ["action"] = "reject",
+    ["text"] = "if height >= 180 then reject" },
+
+  { ["pred"] = function(person)
+      return (person.weight == 40)
+    end,
+    ["action"] = "accept",
+    ["text"] = "if weight == 40 then accept" },
+
+}
+```
 
 ## How to execute the [LUA](https://www.lua.org/) code
 
